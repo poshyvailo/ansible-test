@@ -35,6 +35,10 @@ Vagrant.configure("2") do |config|
           echo 'UserKnownHostsFile /dev/null' >> /home/vagrant/.ssh/config
           chmod -R 600 /home/vagrant/.ssh/config
           ", privileged: false
+      
+      
+      provision = host[:name] == 'ansible' ? "ansible-provision.sh" : "node-provision.sh"
+      node.vm.provision "shell", path: provision
     end
   end
 end
